@@ -1,0 +1,105 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{indentfirst}
+\usepackage{misccorr}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\author{А. А. Галиуллин}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	frame=single,
+	breaklines=true,
+}
+\begin{document}
+	
+	\begin{center}
+		\large
+		Домашняя работа \\
+		Выполнил Галиуллин Арслан, 1 курс факультета физики, группа 171. \\
+		1233550v@mail.ru \\
+		Желаемая оценка - 10.
+	\end{center}
+
+	Домашняя работа по дифференциированию и интегрированию.\\Все коды программы лежат на \href{https://github.com/Fenribel/HW4.git}{гитхабе}.
+	\section{Найдём производную синуса }
+		Посчитаем её по формуле $f'(x) = \frac{f(x+h) - f(x-h)}{2h}$. Погрешность будет составлять $O(h^2)$.
+
+		\begin{center}
+			\includegraphics[scale=0.8]{figure_1} \\
+		\end{center}
+		Видно, что производная и косинус визуально совпали. Погрешность наименьшая при $h = 10^{-5.1}$, её квадрат равен $\Delta^2 = 10^{-11}$.
+	\section{Найдём производную экспоненты }
+		\begin{center}
+			\includegraphics[scale=0.73]{figure_2} \\
+		\end{center}
+	$h = 10^{-6.9}$, $\Delta^2 = 10^{-5}$
+	\section{Зависимость погрешности от h }
+		\textbf{sin(x)}
+			\begin{center}
+				\includegraphics[scale=0.73]{figure_3} \\
+			\end{center}
+		\textbf{exp(x)}
+			\begin{center}
+				\includegraphics[scale=0.74]{figure_4} \\
+			\end{center}
+	\section{Посчитаем те же производные точнее}
+		$f'(x) = \frac{2 f(x+h) + f(x+2h) - f(x-2h) - 2 f(x-h)}{4h}$, точность $O(h^3)$.
+		\begin{center}
+			\includegraphics[scale=0.8]{figure_5} \\
+		\end{center}
+		$h = 10^{-5.1}$, $\Delta^2 = 10^{-11}$ - то же самое.
+				\begin{center}
+			\includegraphics[scale=0.74]{figure_6} \\
+		\end{center}
+		$h = 10^{-6.9}$, $\Delta^2 = 10^{-5}$ - то же самое.
+	\section{Вторые производные}
+		$f''(x) = \frac{f(x+h) - 2f(x) + f(x-h)}{h^2}$, погрешность $O(h^2)$.
+		\begin{center}
+			\includegraphics[scale=0.74]{figure_7} \\
+		\end{center}
+		$h = 10^{-3.7}$, $\Delta^2 = 10^{-9}$ - погрешность растёт.
+		\begin{center}
+			\includegraphics[scale=0.73]{figure_8} \\
+		\end{center}
+		$h = 10^{-3.7}$, $\Delta^2 = 10^{-3}$ - погрешность растёт.
+	\section{Интегрирование}
+	Будем считать интеграл $I = \int\limits_a^b f(x)dx =  \sum_{i=1}^N  f({x_i}) h$, где $h = \frac{b-a}{N}$.
+	\begin{center}
+		\includegraphics[scale=0.73]{figure_9} \\
+	\end{center}
+	$\Delta^2 = 0.5$ - погрешность ощутимая из-за того, что функция быстро растёт. Она считалась после сдвига графика интеграла вверх на единицу. Относительная погрешность $\varepsilon^2 = 10^{-3}$
+	\section{Попробуем теперь продифференцировать и проинтегрировать функцию}
+		\begin{center}
+			\includegraphics[scale=0.68]{figure_10} \\
+		\end{center}
+		$\Delta^2 = 0.6$, $\varepsilon^2 = 10^{-3}$
+		\begin{center}
+			\includegraphics[scale=0.68]{figure_11} \\
+		\end{center}
+		$\Delta^2 = 10^{-3}$
+	\section{Посчитаем какой-нибудь интеграл, а потом сравним с тем, что считает Mathematica}
+	 $I = \int\limits_{0.524 (\pi/6)}^{1.047 (\pi/3)} \frac{sin^2(x)}{cos^2(x) \sqrt{tan(x)}}dx =
+	 \begin{cases}
+	    0.581895835761243,  & \text{программа} \\
+	 	0.5818958362420757, & Mathematica
+	 	
+	 \end{cases}$
+	 \\
+	 Относительная разница $\varepsilon^2 = 10^{-18}$. Весьма точно.
+	 \\
+	 Разбиение при подсчёте было на $10^9$ точек. Считало долго.
+	\section{Интеграл 1/x}
+	Чтобы посчитать интеграл функции, уходящей симметрично на бесконечность (например, $1/x$), нужно считать интеграл так, чтобы обе бесконечности занулились.
+	Для 1/x он будет выглядеть так: 
+	$I = \int\limits_{-1}^1 \frac{1}{x}dx =  \sum_{i=1}^N  \frac{f(x+h/2)+f(x-h/2)}{2} h = 10^{-4}$
+\end{document}
